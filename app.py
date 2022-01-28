@@ -2,6 +2,7 @@ import streamlit as st
 from dataclasses import dataclass
 from datetime import datetime
 import hashlib
+import pandas as pd
 
 st.markdown('# Welcome to Blockchain Demo')
 
@@ -69,4 +70,14 @@ if st.button('Add Block'):
                 prev_hash=prev_block_hash
                 )
     stockchain_live.add_block(new_block)
-    st.write(f'Here is the chain:\n{stockchain_live}')
+    # st.write(f'Here is the chain:\n{stockchain_live.chain}')
+
+    st.balloons()
+
+st.markdown('## Block Ledger')
+stockchain_df=pd.DataFrame(stockchain_live.chain).astype(str)
+st.write(stockchain_df)
+
+st.sidebar.write('# Block Inspector')
+selected_block=st.sidebar.selectbox('Which block would you like to see? ', stockchain_live.chain)
+st.sidebar.write(selected_block)
