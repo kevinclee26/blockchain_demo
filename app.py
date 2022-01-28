@@ -35,14 +35,18 @@ class StockChain():
     def add_block(self, block):
         self.chain=self.chain+[block]
 
-chain=StockChain(
-        chain=[Block(
-            record=RecordTrade(
-                buyer_id=1,
-                shares=100,
-                seller_id=2
-            )
-        )]
-)
+@st.cache(allow_output_mutation=True)
+def setup():
+    chain=StockChain(
+            chain=[Block(
+                record=RecordTrade(
+                    buyer_id=1,
+                    shares=100,
+                    seller_id=2
+                )
+            )]
+    )
+    return chain
 
-st.write(f'Here is the chain:\n{chain}')
+stockchain_live=setup()
+st.write(f'Here is the chain:\n{stockchain_live}')
