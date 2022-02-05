@@ -19,10 +19,17 @@ class RecordTrade():
 @dataclass
 class Block():
     record: RecordTrade
-    trade_time: str=datetime.utcnow().strftime('%H:%M:%S')
-    prev_hash: str='0'
-    hash: str='0'
-        
+    trade_time: str #=datetime.utcnow().strftime('%H:%M:%S')
+    prev_hash: str #='0'
+    hash: str #='0'
+
+    def __init__(self, record, prev_hash='0'): 
+        # self.prev_hash='0'
+        self.record=record
+        self.trade_time=datetime.utcnow().strftime('%H:%M:%S')
+        self.prev_hash=prev_hash
+        self.hash=self.hash_block()
+
     def hash_block(self):
         sha=hashlib.sha256()
         
@@ -30,9 +37,11 @@ class Block():
         
         sha.update(trade_time_encoded)
         
-        block_hash=sha.hexdigest()
-        self.hash=block_hash
+        # block_hash=sha.hexdigest()
+        # self.hash=block_hash
         return sha.hexdigest()
+
+
 
 from typing import List
 
@@ -41,7 +50,7 @@ class StockChain():
     chain: List[Block]
         
     def add_block(self, block):
-        self.chain=self.chain+[block]
+        self.chain=self.chain+[block] # ['a', 'b'] + ['c', 'd'] = ['a', 'b', 'c', 'd']
 
 @st.cache(allow_output_mutation=True)
 def setup():
@@ -71,7 +80,6 @@ if st.button('Add Block'):
                 )
     stockchain_live.add_block(new_block)
     # st.write(f'Here is the chain:\n{stockchain_live.chain}')
-
     st.balloons()
 
 st.markdown('## Block Ledger')
