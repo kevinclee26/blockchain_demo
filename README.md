@@ -1,3 +1,5 @@
 # blockchain_demo
 
-![alt_name_Fdsafdsafdsa](cat.webp)
+![from_local](cat.webp)
+
+![from_github_repo](images/cat.webp)
